@@ -7,7 +7,7 @@ import (
 )
 
 type Note struct {
-	id         uuid.UUID
-	content    string
-	created_at time.Time
+	Id         uuid.UUID
+	Content    string
+	Created_at time.Time
 }

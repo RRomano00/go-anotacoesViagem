@@ -2,13 +2,15 @@ package models
 
 import (
 	"time"
-
-	"github.com/google/uuid"
 )
 
 type Travel struct {
-	id         uuid.UUID
-	title      string
-	start_date time.Time
-	end_date   time.Time
+	Id         int
+	Title      string
+	Start_date time.Time
+	End_date   time.Time
+}
+
+type CreateTravelRequest struct {
+	Title string
 }
