@@ -10,21 +10,30 @@ import (
 func RegisterRoutes(router *gin.Engine) {
 
 	// ---- Injeção de Dependências ----
-	// 1. Criando repository
-	travelRepository := repositories.NewTravelRepository()
+	travelRepo := repositories.NewTravelRepository()
+	noteRepo := repositories.NewNoteRepository()
 
-	// 2. Injetando o Repo no Service
-	travelService := services.NewTravelService(travelRepository)
+	noteService := services.NewNoteService(noteRepo)
+	noteHandler := handlers.NewNoteHandler(noteService)
 
-	// 3. Injetando o Service no Handler
+	travelService := services.NewTravelService(travelRepo, noteRepo)
 	travelHandler := handlers.NewTravelHandler(travelService)
-	// --------------------
+
+	// ----------------------------------------
 
 	// ---- Definição das rotas ----
 	// Agrupa rotas relacionadas a 'travel'
-	api := router.Group("/travels")
+	travel := router.Group("/travels")
 	{
-		api.POST("/", travelHandler.Create())
+		travel.POST("/", travelHandler.Create())
+		travel.GET("/", travelHandler.GetAll())
+		travel.GET("/:id", travelHandler.GetTravelByID())
+		travel.DELETE("/:id", travelHandler.Delete())
+
+		travel.PATCH("/:id", travelHandler.Update())
+
+		travel.POST("/notes", noteHandler.Create())
+		travel.GET("/:id/notes", noteHandler.GetNoteByTravelId())
 	}
 
 }

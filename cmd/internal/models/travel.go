@@ -5,12 +5,13 @@ import (
 )
 
 type Travel struct {
-	Id         int
-	Title      string
-	Start_date time.Time
-	End_date   time.Time
+	Id        int
+	Title     string
+	StartDate time.Time
+	EndDate   *time.Time
 }
 
-type CreateTravelRequest struct {
-	Title string
+type UpdateTravelRequest struct {
+	Title   string
+	EndDate *time.Time
 }
