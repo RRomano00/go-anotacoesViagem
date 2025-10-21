@@ -5,15 +5,15 @@ import (
 )
 
 type Note struct {
-	Id         int
-	Content    string
-	Created_at time.Time
-	Travel_Id  int
+	Id         int       `json:"id"`
+	Content    string    `json:"content"`
+	Created_at time.Time `json:"created_at"`
+	Travel_Id  int       `json:"travel_id"`
 }
 
 type CreateNoteRequest struct {
-	Content  string
-	TravelID int
+	Content  string `json:"content"`
+	TravelID int    `json:"travel_id"`
 }
 
 type NoteTravel struct {

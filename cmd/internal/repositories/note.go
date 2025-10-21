@@ -77,3 +77,16 @@ func (nr *NoteRepository) DeleteByTravelID(travelID int) error {
 
 	return nil
 }
+
+func (nr *NoteRepository) DeleteByID(id int) error {
+	sql := `DELETE FROM note WHERE id = $1`
+
+	// Exec nao retorna nenhuma linha (INSERT, UPDATE e DELETE)
+	_, err := nr.db.Exec(sql, id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

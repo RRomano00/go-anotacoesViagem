@@ -5,10 +5,10 @@ import (
 )
 
 type Travel struct {
-	Id        int
-	Title     string
-	StartDate time.Time
-	EndDate   *time.Time
+	Id        int        `json:"id"`
+	Title     string     `json:"title"`
+	StartDate time.Time  `json:"start_date"`
+	EndDate   *time.Time `json:"end_date"`
 }
 
 type UpdateTravelRequest struct {

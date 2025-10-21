@@ -70,3 +70,25 @@ func (nh *NoteHandler) GetNoteByTravelId() gin.HandlerFunc {
 		c.IndentedJSON(http.StatusOK, note)
 	}
 }
+
+func (nh *NoteHandler) DeleteNoteById() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		id, err := strconv.Atoi(c.Param("id"))
+
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
+			return
+		}
+
+		err = nh.service.DeleteTravelById(id)
+
+		if err != nil {
+			slog.Error("Erro ao deletar anotaçõe", "error", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		// converte o slice que retornou (handler <- service <- repo), em uma string no formato JSON
+		// envia esse JSON de volta no corpo da response HTTP
+		c.IndentedJSON(http.StatusOK, "Deletado com sucesso!")
+	}
+}

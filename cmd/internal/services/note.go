@@ -22,3 +22,7 @@ func (ns *NoteService) Create(note models.Note) error {
 func (ns *NoteService) GetNoteByTravelID(travelID int) ([]models.NoteTravel, error) {
 	return ns.repo.GetNoteByTravelID(travelID)
 }
+
+func (ns *NoteService) DeleteTravelById(id int) error {
+	return ns.repo.DeleteByID(id)
+}

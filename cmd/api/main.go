@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/RRomano00/anotacoes_viagem/cmd/internal/shared"
 	"github.com/RRomano00/anotacoes_viagem/cmd/routes"
@@ -15,11 +16,12 @@ func main() {
 		panic(fmt.Sprintf("erro ao inicializar banco:%s", err))
 	}
 
-	// Cria roteador do Gin
 	router := gin.Default()
 
 	routes.RegisterRoutes(router)
 
 	fmt.Println("Listening... (8080)")
-	router.Run(":8080")
+	if err := router.Run(":8080"); err != nil {
+		log.Fatal("Erro ao iniciar o servidor: ", err)
+	}
 }
